@@ -1,10 +1,11 @@
 {
   "name": "rayso",
   "version": "1.0.0",
-  "description": "",
+  "description": "Rayso is a simple and easy to use web scraper. It is built on top of puppeteer.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.cjs"
   },
   "author": "",
   "license": "ISC",
@@ -12,5 +13,12 @@
     "js-base64": "^3.7.5",
     "puppeteer": "^19.8.5"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "@babel/core": "^7.21.4",
+    "@babel/preset-env": "^7.21.4",
+    "babel-loader": "^9.1.2",
+    "webpack": "^5.78.0",
+    "webpack-cli": "^5.0.1"
+  }
 }
