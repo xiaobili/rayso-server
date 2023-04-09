@@ -8,7 +8,7 @@
 
 ### 2.1 系统要求
 
-- Node.js 12.0.0 或更高版本
+- Node.js 16 或更高版本
 - Google Chrome 或 Chromium 浏览器
 
 ### 2.2 安装依赖
