@@ -16,13 +16,13 @@
 在项目根目录下执行以下命令以安装所需依赖：
 
 ```
-bashCopy code
+bash
 npm install
 ```
 
 ## 3. 运行爬虫服务器
 
 ```
-bash Copy code
+bash
 npm run start
 ```
