@@ -1,0 +1,4 @@
+{"code":"ENOENT","errno":-2,"level":"error","path":"/Volumes/DOC/Code/vscode/rayso-server/.cache/screenshot/cfb23deb-a568-472e-add8-75ae6ba1e4d8.png","service":"rayso-service","syscall":"open"}
+{"code":"ENOENT","errno":-2,"level":"error","path":"./downloads/screenshots/14e4a8b3-56b7-4c46-ba5a-01680d4e7817.png","service":"rayso-service","syscall":"open"}
+{"code":"ENOENT","errno":-2,"level":"error","path":"./downloads/screenshots/58cf8e8a-0575-46f7-8a21-477d5a54c5aa.png","service":"rayso-service","syscall":"open"}
+{"code":"ENOENT","errno":-2,"level":"error","path":"./cache/screenshots/c6f25e51-f28f-45a4-bc7e-d12935b8b75f.png","service":"rayso-service","syscall":"open"}
