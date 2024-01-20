@@ -24,7 +24,7 @@ The client can obtain the stream data of the image through a simple HTTP request
     darkMode: "the dark mode of rayso, true or false",
     padding: "the padding of rayso, number",
     code: "the code of rayso, base64 encoded",
-  };
+}
 ```
 
 ### Sample Response
