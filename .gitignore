@@ -1,3 +1,4 @@
 node_modules
 userData
 .cache
+.DS_Store
