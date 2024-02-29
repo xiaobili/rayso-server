@@ -8,6 +8,10 @@ const { createLogger, format, transports } = require("winston");
 let client = null;
 let logger = null;
 
+/**
+ * @description 启动浏览器
+ * @returns {Promise<puppeteer.Browser>}
+ */
 const browser = async () => {
   return await puppeteer.launch({
     headless: "new",
@@ -24,14 +28,21 @@ const browser = async () => {
   });
 };
 
-const downloadFile = async (client, data_total) => {
+/**
+ * @description 下载文件
+ * @param {*} client 浏览器实例
+ * @param {*} data_total 数据
+ * @param {*} page_url 页面地址
+ * @returns
+ */
+const downloadFile = async (client, data_total, page_url) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (data_total) {
         data_total = JSON.parse(data_total);
         const page = await client.newPage();
         await page.goto(
-          `http://192.168.5.145:5522/#background=${data_total.background}&darkMode=${data_total.darkMode}&theme=${data_total.theme}&padding=${data_total.padding}&code=${data_total.code}`
+          `${page_url}/#background=${data_total.background}&darkMode=${data_total.darkMode}&theme=${data_total.theme}&padding=${data_total.padding}&code=${data_total.code}`
         );
 
         // wait 0.5s
@@ -62,6 +73,10 @@ const downloadFile = async (client, data_total) => {
   });
 };
 
+/**
+ * @description 将文件流返回给客户端
+ * @param {*} res
+ */
 const pipeFile = async (res) => {
   res.writeHead(200, {
     "Content-Type": "octet-stream",
@@ -70,6 +85,7 @@ const pipeFile = async (res) => {
   const readStream = createReadStream(
     join(__dirname, "downloads", "pics", "ray-so-export.png")
   );
+  // 将文件流返回给客户端
   await readStream.pipe(res);
   res.on("close", () => {
     readStream.destroy();
@@ -85,7 +101,11 @@ const pipeFile = async (res) => {
   });
 };
 
+/**
+ * @description 创建服务器
+ */
 const server = http.createServer(async (req, res) => {
+  const page_url = "http://192.168.5.145:5522";
   logger.info("接收到请求", req.url);
   req.setEncoding("utf-8");
   let data_total = null;
@@ -97,11 +117,12 @@ const server = http.createServer(async (req, res) => {
   });
 
   req.on("end", async () => {
-    await downloadFile(client, data_total);
+    await downloadFile(client, data_total, page_url);
     await pipeFile(res);
   });
 });
 
+// 启动服务器
 server.listen(5252, async () => {
   // 判断 chrome 是否启动
   while (!client) {
@@ -112,6 +133,7 @@ server.listen(5252, async () => {
       logger.error(error);
     }
   }
+  // 创建日志
   logger = createLogger({
     level: "info",
     format: format.json(),
