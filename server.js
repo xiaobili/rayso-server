@@ -31,8 +31,11 @@ const downloadFile = async (client, data_total) => {
         data_total = JSON.parse(data_total);
         const page = await client.newPage();
         await page.goto(
-          `https://ray.so/#background=${data_total.background}&darkMode=${data_total.darkMode}&theme=${data_total.theme}&padding=${data_total.padding}&code=${data_total.code}`
+          `http://192.168.5.145:5522/#background=${data_total.background}&darkMode=${data_total.darkMode}&theme=${data_total.theme}&padding=${data_total.padding}&code=${data_total.code}`
         );
+
+        // wait 0.5s
+        await page.waitForTimeout(500);
 
         // xpath handler
         const xpathHandler = await page.$x(
@@ -100,16 +103,15 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(5252, async () => {
-  client = await browser();
-  client
-    .target()
-    .createCDPSession()
-    .then((session) => {
-      session.send("Browser.setDownloadBehavior", {
-        behavior: "allow",
-        downloadPath: "./downloads/pics",
-      });
-    });
+  // 判断 chrome 是否启动
+  while (!client) {
+    try {
+      client = await browser();
+      logger.info("chrome 启动成功");
+    } catch (error) {
+      logger.error(error);
+    }
+  }
   logger = createLogger({
     level: "info",
     format: format.json(),
