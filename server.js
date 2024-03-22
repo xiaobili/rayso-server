@@ -105,7 +105,7 @@ const pipeFile = async (res) => {
  * @description 创建服务器
  */
 const server = http.createServer(async (req, res) => {
-  const page_url = "http://192.168.5.145:5522";
+  const page_url = "http://192.168.5.145";
   logger.info("接收到请求", req.url);
   req.setEncoding("utf-8");
   let data_total = null;
