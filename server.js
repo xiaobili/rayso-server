@@ -124,15 +124,6 @@ const server = http.createServer(async (req, res) => {
 
 // 启动服务器
 server.listen(5252, async () => {
-  // 判断 chrome 是否启动
-  while (!client) {
-    try {
-      client = await browser();
-      logger.info("chrome 启动成功");
-    } catch (error) {
-      logger.error(error);
-    }
-  }
   // 创建日志
   logger = createLogger({
     level: "info",
@@ -143,4 +134,13 @@ server.listen(5252, async () => {
       new transports.File({ filename: "combined.log" }),
     ],
   });
+  // 判断 chrome 是否启动
+  while (!client) {
+    try {
+      client = await browser();
+      logger.info("chrome 启动成功");
+    } catch (error) {
+      logger.error(error);
+    }
+  }
 });
